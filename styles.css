@@ -1,0 +1,55 @@
+body {
+    font-family: monospace;
+    margin: 0;
+    padding: 0;
+}
+
+#workout-section {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label, select, button {
+    display: block;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#workout-plan {
+    margin-top: 20px;
+}
+
+#workout-plan div {
+    margin-bottom: 10px;
+}
+
+#workout-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#workout-table th, #workout-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#workout-table th {
+    background-color: #f2f2f2;
+}

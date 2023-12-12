@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Gym Workout Planner</title>
+</head>
+
+<body>
+
+    <header>
+
+    </header>
+
+    <section id="workout-section">
+        <h2>Plan Your Workout</h2>
+
+        <label for="equipment-select">Select Equipment:</label>
+        <select id="equipment-select">
+            <option value="power-rack">Power Rack</option>
+            <option value="bench">Bench</option>
+            <option value="barbell">Barbell</option>
+            <option value="dumbbell">Dumbbell</option>
+            <option value="treadmill">Treadmill</option>
+        </select>
+
+        <label for="exercise-select">Select Exercise:</label>
+        <select id="exercise-select"></select>
+
+        <button onclick="planWorkout()">Plan Workout</button>
+
+        <div id="workout-plan"></div>
+        <button onclick="exportToTxt()">Export to TXT</button>
+    </section>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
