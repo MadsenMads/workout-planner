@@ -1,6 +1,6 @@
 // script.js
 
-// Define the exercises object
+// Updated exercises object
 const exercises = {
     "legs": ["Squats", "Deadlifts", "Dumbbell Lunges", "Running"],
     "core": ["Planks", "Crunches", "Leg Raises", "Russian Twists"],
@@ -10,55 +10,57 @@ const exercises = {
     "compound": ["Bench Press", "Rows", "Pull-Ups"]
 };
 
-// Function to update exercise list based on selected muscle group
-function updateExerciseList() {
-    const muscleGroupSelect = document.getElementById("muscle-group-select");
-    const exerciseSelect = document.getElementById("exercise-select");
+document.addEventListener("DOMContentLoaded", function () {
+    createWorkoutTable();
+    createCategoryButtons();
+    document.getElementById("equipment-select").addEventListener("change", updateExerciseButtons);
+    updateExerciseButtons();
+});
 
-    const selectedMuscleGroup = muscleGroupSelect.value;
-    const muscleGroupExercises = exercises[selectedMuscleGroup];
+function createCategoryButtons() {
+    const categoryButtons = document.getElementById("category-buttons");
 
-    exerciseSelect.innerHTML = "";
-
-    if (muscleGroupExercises) {
-        muscleGroupExercises.forEach(exercise => {
-            const option = document.createElement("option");
-            option.value = exercise;
-            option.textContent = exercise;
-            exerciseSelect.appendChild(option);
+    Object.keys(exercises).forEach(category => {
+        const button = document.createElement("button");
+        button.textContent = category;
+        button.addEventListener("click", function () {
+            updateExerciseButtons(category);
         });
-    }
+        categoryButtons.appendChild(button);
+    });
 }
 
-function planWorkout() {
-    const muscleGroupSelect = document.getElementById("muscle-group-select");
-    const exerciseSelect = document.getElementById("exercise-select");
-    let workoutTable = document.getElementById("workout-table");
+function updateExerciseButtons(category) {
+    const exerciseButtons = document.getElementById("exercise-buttons");
+    exerciseButtons.innerHTML = "";
 
-    const selectedEquipment = muscleGroupSelect.value;
-    const selectedExercise = exerciseSelect.value;
+    exercises[category].forEach(exercise => {
+        const button = document.createElement("button");
+        button.textContent = exercise;
+        button.addEventListener("click", function () {
+            addExerciseToPlan(exercise);
+        });
+        exerciseButtons.appendChild(button);
+    });
+}
 
-    // If the table doesn't exist, create it
+function addExerciseToPlan(exercise) {
+    const workoutTable = document.getElementById("workout-table");
+
     if (!workoutTable) {
-        createWorkoutTable();
-        workoutTable = document.getElementById("workout-table"); // Update reference
+        alert("Workout table not found.");
+        return;
     }
 
-    // Add a row for the selected exercise
     const row = workoutTable.insertRow(-1);
     const cellExercise = row.insertCell(0);
-    const cellKg = row.insertCell(1);
-    const cellReps = row.insertCell(2);
 
-    // Add columns for each set
     for (let i = 1; i <= 5; i++) {
         const cell = row.insertCell(-1);
         cell.textContent = ""; // Initialize each set as blank
     }
 
-    cellExercise.textContent = selectedExercise;
-    cellKg.textContent = ""; // Leave the kg column blank
-    cellReps.textContent = ""; // Leave the reps column blank
+    cellExercise.textContent = exercise;
 }
 
 function createWorkoutTable() {
@@ -66,11 +68,8 @@ function createWorkoutTable() {
     const table = document.createElement("table");
     table.id = "workout-table";
 
-    // Create header row
     const headerRow = table.insertRow(0);
     headerRow.insertCell(0).textContent = "Exercise";
-    headerRow.insertCell(1).textContent = "Kg"; // Header for kg column
-    headerRow.insertCell(2).textContent = "Reps"; // Header for reps column
 
     for (let i = 1; i <= 5; i++) {
         const headerCell = headerRow.insertCell(i);
@@ -89,26 +88,21 @@ function exportToHTML() {
         alert("No workout plan to export.");
         return;
     }
-    
-    // Get the current date
+
     const currentDate = new Date();
     const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
     const formattedDate = new Date().toLocaleDateString(undefined, options).replace(/\//g, '-');
 
-
     let htmlContent = "<!DOCTYPE html>\n<html>\n<head>\n<title>Workout Plan</title>\n";
     htmlContent += "<style>\n";
-    // Add your CSS styles here
     htmlContent += "body { font-family: Arial, sans-serif; }\n";
     htmlContent += "table { border-collapse: collapse; width: 100%; }\n";
     htmlContent += "th, td { border: 1px solid #dddddd; text-align: left; padding: 8px; }\n";
     htmlContent += "</style>\n";
     htmlContent += "</head>\n<body>\n";
 
-    // Add a header
-    htmlContent += "<h2 style='text-align: center;'>Workout: " + formattedDate + "</h2>\n";
+    htmlContent += `<h2 style='text-align: center;'>Workout: ${formattedDate}</h2>\n`;
 
-    // Generate the workout table
     htmlContent += "<table>\n";
 
     for (let j = 0; j < workoutTable.rows.length; j++) {
@@ -116,7 +110,7 @@ function exportToHTML() {
 
         for (let i = 0; i < workoutTable.rows[j].cells.length; i++) {
             const cellContent = workoutTable.rows[j].cells[i].textContent || "";
-            const tag = (j === 0) ? "th" : "td"; // Use th for header row
+            const tag = (j === 0) ? "th" : "td";
             htmlContent += `<${tag}>${cellContent}</${tag}>\n`;
         }
 
@@ -128,7 +122,6 @@ function exportToHTML() {
     downloadHTMLFile(htmlContent);
 }
 
-
 function downloadHTMLFile(content) {
     const blob = new Blob([content], { type: "text/html;charset=utf-8" });
     const a = document.createElement("a");
@@ -136,7 +129,3 @@ function downloadHTMLFile(content) {
     a.download = "workout_plan.html";
     a.click();
 }
-
-document.getElementById("muscle-group-select").addEventListener("change", updateExerciseList);
-
-updateExerciseList();

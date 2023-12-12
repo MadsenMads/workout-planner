@@ -16,24 +16,13 @@
 
     <section id="workout-section">
         <h2>Plan Your Workout</h2>
-
-        <label for="muscle-group-select">Select Muscle Group:</label>
-        <select id="muscle-group-select">
-            <option value="legs">Legs</option>
-            <option value="core">Core</option>
-            <option value="shoulder">Shoulder</option>
-            <option value="biceps">Biceps</option>
-            <option value="triceps">Triceps</option>
-            <option value="compound">Compound</option>
-        </select>
-
-        <label for="exercise-select">Select Exercise:</label>
-        <select id="exercise-select"></select>
-
-        <button onclick="planWorkout()">Plan Workout</button>
+        <div class="button-container">
+        <div id="category-buttons"></div>
+        <div id="exercise-buttons"></div>
+        </div>
 
         <div id="workout-plan"></div>
-        <button onclick="exportToHTML()">Export HTML</button>
+        <button onclick="exportToHTML()">Export to HTML</button>
     </section>
 
     <script src="script.js"></script>
