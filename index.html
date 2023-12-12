@@ -17,13 +17,14 @@
     <section id="workout-section">
         <h2>Plan Your Workout</h2>
 
-        <label for="equipment-select">Select Equipment:</label>
-        <select id="equipment-select">
-            <option value="power-rack">Power Rack</option>
-            <option value="bench">Bench</option>
-            <option value="barbell">Barbell</option>
-            <option value="dumbbell">Dumbbell</option>
-            <option value="treadmill">Treadmill</option>
+        <label for="muscle-group-select">Select Muscle Group:</label>
+        <select id="muscle-group-select">
+            <option value="legs">Legs</option>
+            <option value="core">Core</option>
+            <option value="shoulder">Shoulder</option>
+            <option value="biceps">Biceps</option>
+            <option value="triceps">Triceps</option>
+            <option value="compound">Compound</option>
         </select>
 
         <label for="exercise-select">Select Exercise:</label>
@@ -32,7 +33,7 @@
         <button onclick="planWorkout()">Plan Workout</button>
 
         <div id="workout-plan"></div>
-        <button onclick="exportToTxt()">Export to TXT</button>
+        <button onclick="exportToHTML()">Export HTML</button>
     </section>
 
     <script src="script.js"></script>

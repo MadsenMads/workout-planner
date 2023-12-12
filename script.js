@@ -2,24 +2,26 @@
 
 // Define the exercises object
 const exercises = {
-    "power-rack": ["Squats", "Deadlifts", "Overhead Press", "Pull-Ups"],
-    "bench": ["Bench Press", "Dumbbell Flyes", "Tricep Dips"],
-    "barbell": ["Deadlifts", "Bench Press", "Rows", "Curls"],
-    "dumbbell": ["Dumbbell Lunges", "Shoulder Press", "Bicep Curls", "Tricep Kickbacks"],
-    "treadmill": ["Running", "Walking Incline", "Sprints"]
+    "legs": ["Squats", "Deadlifts", "Dumbbell Lunges", "Running"],
+    "core": ["Planks", "Crunches", "Leg Raises", "Russian Twists"],
+    "shoulder": ["Overhead Press", "Shoulder Press", "Lateral Raises", "Front Raises"],
+    "biceps": ["Bicep Curls", "Hammer Curls", "Chin-Ups"],
+    "triceps": ["Tricep Dips", "Tricep Kickbacks", "Skull Crushers"],
+    "compound": ["Bench Press", "Rows", "Pull-Ups"]
 };
 
+// Function to update exercise list based on selected muscle group
 function updateExerciseList() {
-    const equipmentSelect = document.getElementById("equipment-select");
+    const muscleGroupSelect = document.getElementById("muscle-group-select");
     const exerciseSelect = document.getElementById("exercise-select");
 
-    const selectedEquipment = equipmentSelect.value;
-    const equipmentExercises = exercises[selectedEquipment];
+    const selectedMuscleGroup = muscleGroupSelect.value;
+    const muscleGroupExercises = exercises[selectedMuscleGroup];
 
     exerciseSelect.innerHTML = "";
 
-    if (equipmentExercises) {
-        equipmentExercises.forEach(exercise => {
+    if (muscleGroupExercises) {
+        muscleGroupExercises.forEach(exercise => {
             const option = document.createElement("option");
             option.value = exercise;
             option.textContent = exercise;
@@ -29,11 +31,11 @@ function updateExerciseList() {
 }
 
 function planWorkout() {
-    const equipmentSelect = document.getElementById("equipment-select");
+    const muscleGroupSelect = document.getElementById("muscle-group-select");
     const exerciseSelect = document.getElementById("exercise-select");
     let workoutTable = document.getElementById("workout-table");
 
-    const selectedEquipment = equipmentSelect.value;
+    const selectedEquipment = muscleGroupSelect.value;
     const selectedExercise = exerciseSelect.value;
 
     // If the table doesn't exist, create it
@@ -77,8 +79,9 @@ function createWorkoutTable() {
 
     workoutSection.appendChild(table);
 }
-function exportToTxt() {
-    console.log("Exporting to TXT...");
+
+function exportToHTML() {
+    console.log("Exporting to HTML...");
 
     const workoutTable = document.getElementById("workout-table");
 
@@ -86,63 +89,54 @@ function exportToTxt() {
         alert("No workout plan to export.");
         return;
     }
+    
+    // Get the current date
+    const currentDate = new Date();
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+    const formattedDate = new Date().toLocaleDateString(undefined, options).replace(/\//g, '-');
 
-    let txtContent = "Workout Plan:\n\n";
 
-    // Get the maximum lengths for exercise, kg, and reps
-    const maxLengths = { exercise: 0, kg: 0, reps: 0 };
-    for (let j = 1; j < workoutTable.rows.length; j++) {
-        const exercise = workoutTable.rows[j].cells[0].textContent;
-        const kg = workoutTable.rows[j].cells[1].textContent;
-        const reps = workoutTable.rows[j].cells[2].textContent;
+    let htmlContent = "<!DOCTYPE html>\n<html>\n<head>\n<title>Workout Plan</title>\n";
+    htmlContent += "<style>\n";
+    // Add your CSS styles here
+    htmlContent += "body { font-family: Arial, sans-serif; }\n";
+    htmlContent += "table { border-collapse: collapse; width: 100%; }\n";
+    htmlContent += "th, td { border: 1px solid #dddddd; text-align: left; padding: 8px; }\n";
+    htmlContent += "</style>\n";
+    htmlContent += "</head>\n<body>\n";
 
-        maxLengths.exercise = Math.max(maxLengths.exercise, exercise.length);
-        maxLengths.kg = Math.max(maxLengths.kg, kg.length);
-        maxLengths.reps = Math.max(maxLengths.reps, reps.length);
-    }
+    // Add a header
+    htmlContent += "<h2 style='text-align: center;'>Workout: " + formattedDate + "</h2>\n";
 
-    // Adjust maximum lengths based on A4 page size with 20mm margins
-    const maxA4Width = 210 - 2 * 20; // A4 width minus 2 margins
-    maxLengths.exercise = Math.min(maxLengths.exercise, maxA4Width / 3); // Divide by 3 for the first 3 columns
-    maxLengths.kg = Math.min(maxLengths.kg, maxA4Width / 3);
-    maxLengths.reps = Math.min(maxLengths.reps, maxA4Width / 3);
+    // Generate the workout table
+    htmlContent += "<table>\n";
 
-    // Format header
-    txtContent += `| ${padString("Exercise", maxLengths.exercise)} | ${padString("Kg", maxLengths.kg)} | ${padString("Reps", maxLengths.reps)} | Days |\n`;
+    for (let j = 0; j < workoutTable.rows.length; j++) {
+        htmlContent += "<tr>\n";
 
-    for (let j = 1; j < workoutTable.rows.length; j++) {
-        const exercise = workoutTable.rows[j].cells[0].textContent;
-        const kg = workoutTable.rows[j].cells[1].textContent;
-        const reps = workoutTable.rows[j].cells[2].textContent;
-
-        // Format each row
-        let rowContent = `| ${padString(exercise, maxLengths.exercise)} | ${padString(kg, maxLengths.kg)} | ${padString(reps, maxLengths.reps)} |`;
-
-        for (let i = 3; i < workoutTable.rows[j].cells.length; i++) {
-            const dayContent = workoutTable.rows[j].cells[i].textContent || " "; // Use a space if the cell is blank
-            rowContent += ` ${dayContent} |`;
+        for (let i = 0; i < workoutTable.rows[j].cells.length; i++) {
+            const cellContent = workoutTable.rows[j].cells[i].textContent || "";
+            const tag = (j === 0) ? "th" : "td"; // Use th for header row
+            htmlContent += `<${tag}>${cellContent}</${tag}>\n`;
         }
 
-        txtContent += `${rowContent}\n`;
+        htmlContent += "</tr>\n";
     }
 
-    downloadTxtFile(txtContent);
+    htmlContent += "</table>\n</body>\n</html>";
+
+    downloadHTMLFile(htmlContent);
 }
 
-// Add this function to pad the string with spaces
-function padString(str, length) {
-    const padding = Math.max(0, length - str.length);
-    return `${str}${" ".repeat(padding)}`;
-}
 
-function downloadTxtFile(content) {
-    const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+function downloadHTMLFile(content) {
+    const blob = new Blob([content], { type: "text/html;charset=utf-8" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
-    a.download = "workout_plan.txt";
+    a.download = "workout_plan.html";
     a.click();
 }
 
-document.getElementById("equipment-select").addEventListener("change", updateExerciseList);
+document.getElementById("muscle-group-select").addEventListener("change", updateExerciseList);
 
 updateExerciseList();
