@@ -7,7 +7,12 @@ const exercises = {
     "shoulder": ["Overhead Press", "Shoulder Press", "Lateral Raises", "Front Raises"],
     "biceps": ["Bicep Curls", "Hammer Curls", "Chin-Ups"],
     "triceps": ["Tricep Dips", "Tricep Kickbacks", "Skull Crushers"],
-    "compound": ["Bench Press", "Rows", "Pull-Ups"]
+    "compound": ["Bench Press", "Rows", "Pull-Ups"],
+    "compound2": ["Bench Press", "Rows", "Pull-Ups"],
+    "compound3": ["Bench Press", "Rows", "Pull-Ups"],
+    "compound4": ["Bench Press", "Rows", "Pull-Ups"],
+    "compound5": ["Bench Press", "Rows", "Pull-Ups"],
+    "compound6": ["Bench Press", "Rows", "Pull-Ups"]
 };
 
 document.addEventListener("DOMContentLoaded", function () {
