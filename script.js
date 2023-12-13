@@ -2,12 +2,14 @@
 
 // Updated exercises object
 const exercises = {
-    "legs": ["Squats", "Lunges", "Leg Curls", "Leg Extensions", "Calf Raises", "Hip Thrust", "Deadlifts",  "Running"],
-    "core": ["Plank", "Crunches", "Leg Raises", "Bicycle Crunch", "Mountain Climbers", "Side Bend", "Burpees", "Side Bend on floor", "Starfish Crunches", "Russian Twists"],
-    "shoulder": ["Overhead Press", "Shoulder Press", "Arnold Press", "Reverse Flyes", "Upright Row", "Shoulder Shrug", "Front Raise with Rotation", "External Rotation", "Side Raises", "Front Raises"],
-    "biceps": ["Dumbbell Curl", "Incline Curl", "Barbell Curl", "Crossbody Curl", "Preacher Curl", "Push-ups", "Inverted Row", "Row", "Bendover Row", "Hammer Curls", "Chin-Ups"],
-    "triceps": ["Tricep Dips", "Tricep Kickbacks", "Skull Crushers"],
-    "compound": ["Bench Press", "Rows", "Pull-Ups"]
+    "Legs": ["Squats", "Lunges", "Leg Curls", "Leg Extensions", "Calf Raises", "Hip Thrust", "Deadlifts",  "Running"],
+    "Core": ["Plank", "Crunches", "Leg Raises", "Bicycle Crunch", "Mountain Climbers", "Side Bend", "Burpees", "Side Bend on floor", "Starfish Crunches", "Russian Twists"],
+    "Shoulder": ["Overhead Press", "Shoulder Press", "Arnold Press", "Reverse Flyes", "Upright Row", "Shoulder Shrug", "Front Raise with Rotation", "External Rotation", "Side Raises", "Front Raises"],
+    "Biceps": ["Dumbbell Curl", "Incline Curl", "Barbell Curl", "Crossbody Curl", "Preacher Curl", "Push-ups", "Inverted Row", "Row", "Bendover Row", "Hammer Curls", "Chin-Ups"],
+    "Triceps": ["Narrow Benchpress", "Dumbbell Pullover", "Diamond Pushups", "Dips", "Tricep Kickbacks", "Skull Crushers"],
+    "Chest": ["Benchpress", "Incline Benchpress", "Dumbbell Benchpress", "Flyes"],
+    "Back/Lats": ["Rows", "Wide Pull-ups", "Reverse Flyes"],
+    "Compound": ["Deadlift", "Rows", "Pull-Ups", "Squats"]
 };
 
 document.addEventListener("DOMContentLoaded", function () {
