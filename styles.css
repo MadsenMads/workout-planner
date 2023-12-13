@@ -71,11 +71,14 @@ div #category-buttons {
 
 #category-buttons button {
     background-color: red;
+    flex: 1 0 50px;
+    flex-wrap: wrap;
 }
 
 div #exercise-buttons {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 10px;
 }
 
