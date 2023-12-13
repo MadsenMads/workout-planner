@@ -53,14 +53,17 @@ function addExerciseToPlan(exercise) {
     }
 
     const row = workoutTable.insertRow(-1);
-    const cellExercise = row.insertCell(0);
 
-    for (let i = 1; i <= 5; i++) {
+    for (let i = 0; i < 6; i++) { // Assuming 8 columns in the table (adjust if needed)
         const cell = row.insertCell(-1);
-        cell.textContent = ""; // Initialize each set as blank
+        cell.textContent = ""; // Initialize each cell as blank
+
+        // Make all cells editable
+        cell.contentEditable = true;
     }
 
-    cellExercise.textContent = exercise;
+    // Set exercise name in the first cell
+    row.cells[0].textContent = exercise;
 }
 
 function createWorkoutTable() {
