@@ -92,9 +92,8 @@ function exportToHTML() {
         return;
     }
 
-    const currentDate = new Date();
     const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-    const formattedDate = new Date().toLocaleDateString(undefined, options).replace(/\//g, '-');
+    const formattedDate = new Date().toLocaleDateString('en-GB', options).replace(/\//g, '-');
 
     let htmlContent = "<!DOCTYPE html>\n<html>\n<head>\n<title>Workout Plan</title>\n";
     htmlContent += "<style>\n";
