@@ -103,6 +103,7 @@ function exportToHTML() {
     htmlContent += "body { font-family: Arial, sans-serif; }\n";
     htmlContent += "table { border-collapse: collapse; width: 100%; }\n";
     htmlContent += "th, td { border: 1px solid #dddddd; text-align: left; padding: 8px; }\n";
+    htmlContent += "tr > :first-child { border: 1px solid #ddd; padding: 8px; width: 1%; white-space: nowrap; }\n";
     htmlContent += "</style>\n";
     htmlContent += "</head>\n<body>\n";
 
