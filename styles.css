@@ -68,14 +68,9 @@ button:hover {
     text-align: left;
 }
 
-#workout-table td {
+#workout-table td, #workout-table th {
     border: 1px solid #ddd;
     padding: 8px;
-    background-color: blue;
-}
-
-#workout-table th {
-    background-color: red;
 }
 
 div #category-buttons {
