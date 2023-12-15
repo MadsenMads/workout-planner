@@ -53,20 +53,50 @@ button:hover {
     margin-bottom: 10px;
 }
 
-#workout-table {
+/* #workout-table {
     border-collapse: collapse;
     width: 100%;
-}
+    text-align: center;
+    table-layout: fixed;
+} */
 
-#workout-table th, #workout-table td {
+tr {
+    /* background-color: red; */
     border: 1px solid #ddd;
     padding: 8px;
-    text-align: left;
 }
 
-#workout-table th {
-    background-color: #f2f2f2;
+tr > :first-child {
+    border: 1px solid #ddd;
+    padding: 8px;
+    /* background-color: blue; */
+    width: 1%;
 }
+
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+
+
+/* #workout-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    width: 1%;
+    background-color: red;
+    text-align: left;
+} */
+
+/* #workout-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    background-color: blue;
+} */
+
+/* #workout-table th {
+    background-color: red;
+} */
 
 div #category-buttons {
     display: flex;
@@ -98,7 +128,7 @@ div #exercise-buttons {
     justify-content: center;
 }
 
-hr {
+hr { /* Line divider */
     border: 0;
     height: 2px;
     width: 80%;
