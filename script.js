@@ -57,7 +57,7 @@ function addExerciseToPlan(exercise) {
 
     const row = workoutTable.insertRow(-1);
 
-    for (let i = 0; i < 2; i++) { // Assuming 2 columns in the table (adjust if needed)
+    for (let i = 0; i < 6; i++) { // Assuming 6 columns in the table (adjust if needed)
         const cell = row.insertCell(-1);
         cell.textContent = ""; // Initialize each cell as blank
 
@@ -77,7 +77,7 @@ function createWorkoutTable() {
     const headerRow = table.insertRow(0);
     headerRow.insertCell(0).textContent = "Exercise";
 
-    for (let i = 1; i <= 1; i++) {
+    for (let i = 1; i <= 5; i++) {
         const headerCell = headerRow.insertCell(i);
         headerCell.textContent = `set ${i}`;
     }
