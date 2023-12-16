@@ -119,26 +119,23 @@ function getCategoryIndex(exerciseName) {
 function generateTableFromUrl() {
     const urlParams = new URLSearchParams(window.location.search);
     const planParam = urlParams.get("plan");
-    console.log("Plan from URL:", planParam); // Debugging: Log the plan parameter
-
     if (!planParam) return;
 
     const workoutTable = document.getElementById("workout-table");
-    if (!workoutTable) {
-        console.log("Workout table not found."); // Debugging: Check if table is found
-        return;
-    }
+    if (!workoutTable) return;
 
-    // Simplified handling: Process only the first pair for debugging
-    const firstPair = planParam.split(",")[0];
-    const [categoryIndex, exerciseIndex] = firstPair.split("-").map(Number);
-    const categoryName = Object.keys(exercises)[categoryIndex];
-    const exerciseName = exercises[categoryName][exerciseIndex];
-
-    console.log("Adding exercise from URL:", categoryName, exerciseName); // Debugging: Log the exercise being added
-
-    addExerciseToPlan(exerciseName);
+    planParam.split(",").forEach(pair => {
+        const [categoryIndex, exerciseIndex] = pair.split("-").map(Number);
+        if (categoryIndex < Object.keys(exercises).length && exerciseIndex < exercises[Object.keys(exercises)[categoryIndex]].length) {
+            const categoryName = Object.keys(exercises)[categoryIndex];
+            const exerciseName = exercises[categoryName][exerciseIndex];
+            addExerciseToPlan(exerciseName);
+        } else {
+            console.log("Invalid category or exercise index in URL:", categoryIndex, exerciseIndex);
+        }
+    });
 }
+
 
 
 function exportToHTML() {
