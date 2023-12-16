@@ -16,7 +16,6 @@ const exercises = {
 document.addEventListener("DOMContentLoaded", function () {
     createWorkoutTable();
     createCategoryButtons();
-    document.getElementById("equipment-select").addEventListener("change", updateExerciseButtons);
     updateExerciseButtons();
     generateTableFromUrl();
 });
