@@ -37,15 +37,21 @@ function updateExerciseButtons(category) {
     const exerciseButtons = document.getElementById("exercise-buttons");
     exerciseButtons.innerHTML = "";
 
-    exercises[category].forEach(exercise => {
-        const button = document.createElement("button");
-        button.textContent = exercise;
-        button.addEventListener("click", function () {
-            addExerciseToPlan(exercise);
+    // Check if the category is valid and exists in the exercises object
+    if (category && exercises[category]) {
+        exercises[category].forEach(exercise => {
+            const button = document.createElement("button");
+            button.textContent = exercise;
+            button.addEventListener("click", function () {
+                addExerciseToPlan(exercise);
+            });
+            exerciseButtons.appendChild(button);
         });
-        exerciseButtons.appendChild(button);
-    });
+    } else {
+        console.log("Invalid category or category not found in exercises:", category);
+    }
 }
+
 
 function addExerciseToPlan(exercise) {
     const workoutTable = document.getElementById("workout-table");
