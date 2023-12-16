@@ -68,6 +68,9 @@ function addExerciseToPlan(exercise) {
 
     // Set exercise name in the first cell
     row.cells[0].textContent = exercise;
+
+    // Update URL with new plan
+    updateURLWithPlan();
 }
 
 function createWorkoutTable() {
@@ -84,6 +87,44 @@ function createWorkoutTable() {
     }
 
     workoutSection.appendChild(table);
+}
+
+// Function to update URL with workout plan using shorthand notation
+function updateURLWithPlan() {
+    const workoutTable = document.getElementById("workout-table");
+    if (!workoutTable) return;
+
+    let shorthandPlan = [];
+    for (let i = 1; i < workoutTable.rows.length; i++) {
+        const exerciseName = workoutTable.rows[i].cells[0].textContent;
+        const categoryIndex = getCategoryIndex(exerciseName);
+        const exerciseIndex = exercises[Object.keys(exercises)[categoryIndex]].indexOf(exerciseName);
+        shorthandPlan.push(`${categoryIndex}-${exerciseIndex}`);
+    }
+
+    history.pushState({}, '', '?plan=' + shorthandPlan.join(","));
+}
+
+// Function to get category index from exercise name
+function getCategoryIndex(exerciseName) {
+    return Object.keys(exercises).findIndex(category => exercises[category].includes(exerciseName));
+}
+
+// Updated generateTableFromUrl function
+function generateTableFromUrl() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const planParam = urlParams.get("plan");
+    if (!planParam) return;
+
+    const workoutTable = document.getElementById("workout-table");
+    if (!workoutTable) return;
+
+    planParam.split(",").forEach(pair => {
+        const [categoryIndex, exerciseIndex] = pair.split("-").map(Number);
+        const categoryName = Object.keys(exercises)[categoryIndex];
+        const exerciseName = exercises[categoryName][exerciseIndex];
+        addExerciseToPlan(exerciseName);
+    });
 }
 
 function exportToHTML() {
